@@ -27,5 +27,18 @@ public class Appointment {
     private Department department;
     @ManyToOne(cascade = {REFRESH,PERSIST,DETACH,MERGE})
     private Patient patient;
+    @Transient
+    private Long departmentId;
+    @Transient
+    private Long patientId;
+    @Transient
+    private Long doctorId;
+    @Transient
+    private String date1;
+
+
+
+
+
 
 }

@@ -27,5 +27,7 @@ public class Department {
     private List<Doctor> doctors;
     @ManyToOne(cascade ={REFRESH,PERSIST,DETACH,MERGE} )
     private Hospital hospital;
+    @Transient
+    private Long hospitalId;
 
 }

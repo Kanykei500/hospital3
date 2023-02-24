@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Main page</title>
+</head>
+<body>
+<div>
+    <a th:href="@{/hospitals/{hospitalId}/mainPage(hospitalId=${hospitalId})}">
+        <button type="button">back</button>
+    </a>
+    <a th:href="@{/appointments/{hospitalId}/new(hospitalId=${hospitalId})}" class="btn btn-primary">
+        <button type="button">Add</button>
+    </a>
+</div>
+<div>
+    <table>
+        <thead>
+        <tr>
+
+            <th>Date</th>
+            <th>Department</th>
+            <th>Doctor</th>
+            <th>Patient</th>
+            <th>UPDATE</th>
+            <th>DELETE</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="appointment : ${appointments}">
+
+            <td th:text="${appointment.getDate()}"></td>
+
+            <td th:text="${appointment.getDepartment().getName()}"></td>
+
+            <td th:text="${appointment.getDoctor().getFirstName()}"></td>
+
+            <td th:text="${appointment.getPatient().getFirstName()}"></td>
+
+
+            <td>
+                <form th:method="GET" th:action="@{/appointments/{hospitalId}/{appointmentId}/edit(hospitalId=${hospitalId},appointmentId=${appointment.getId()})}">
+                    <input type="submit"  th:value="UPDATE"/>
+                </form>
+            </td>
+            <td>
+                <form th:method="DELETE" th:action="@{/appointments/{hospitalId}/{appointmentId}/delete(hospitalId=${hospitalId},appointmentId=${appointment.getId()})}">
+                    <button type="submit">DELETE</button>
+                </form>
+            </td>
+
+
+
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+</body>
+</html>
+

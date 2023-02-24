@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static jakarta.persistence.CascadeType.ALL;
@@ -29,8 +30,16 @@ public class Hospital {
     private List<Patient>patients;
     @OneToMany(cascade = {ALL})
     private List<Appointment>appointments;
+    public void addAppointment(Appointment appointment) {
+        if (appointments == null) {
+            appointments = new ArrayList<>();
+        }
+        appointments.add(appointment);
+    }
     @OneToMany(mappedBy = "hospital",cascade = {ALL})
     private List<Department>departments;
     @OneToMany(mappedBy = "hospital",cascade = {ALL})
     private List<Doctor>doctors;
+
+
 }

@@ -1,9 +1,10 @@
 package peaksoft.service;
 
+import org.springframework.stereotype.Service;
 import peaksoft.model.Hospital;
 
 import java.util.List;
-
+@Service
 public interface HospitalService {
     void save(Hospital newHospital);
     List<Hospital> getAllHospitals();

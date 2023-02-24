@@ -35,5 +35,7 @@ public class Patient {
     private Hospital hospital;
     @OneToMany(mappedBy = "patient",cascade = {REFRESH,PERSIST,DETACH,MERGE,REMOVE})
     private List<Appointment> appointments;
+    @Transient
+    private Long hospitalId;
 
 }
