@@ -4,6 +4,7 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Repository;
+import peaksoft.exceptions.ApiException;
 import peaksoft.model.Department;
 import peaksoft.model.Hospital;
 import peaksoft.repository.DepartmentRepository;
@@ -22,9 +23,15 @@ public class DepartmentRepositoryImpl implements DepartmentRepository {
 
     @Override
     public Department save(Department newDepartment) {
-        entityManager.persist(newDepartment);
+       try {
+           entityManager.persist(newDepartment);
+           return newDepartment;
+       }catch (ApiException e){
+           System.out.println(e.getMessage());
+       }
 
-        return newDepartment;
+
+        return null;
     }
 
     @Override

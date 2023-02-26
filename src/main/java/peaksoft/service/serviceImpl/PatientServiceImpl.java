@@ -3,6 +3,7 @@ package peaksoft.service.serviceImpl;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import peaksoft.exceptions.ApiException;
 import peaksoft.model.Appointment;
 import peaksoft.model.Hospital;
 import peaksoft.model.Patient;
@@ -28,10 +29,16 @@ public class PatientServiceImpl implements PatientService {
 
     @Override
     public Patient save(Long hospitalId,Patient newPatient) {
-        Hospital hospital = hospitalRepository.getHospitalById(hospitalId);
-        newPatient.setHospital(hospital);
-        return patientRepository.save(newPatient);
+        if (newPatient.getPhoneNumber().startsWith("+996")) {
+            Hospital hospital = hospitalRepository.getHospitalById(hospitalId);
+            newPatient.setHospital(hospital);
+            return patientRepository.save(newPatient);
+        } else {
+            throw new ApiException("Phone number should be starts +996");
+        }
     }
+
+
 
     @Override
     public List<Patient> getAllPatients(Long id) {

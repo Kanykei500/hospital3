@@ -1,5 +1,6 @@
 package peaksoft.controller;
 
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -42,7 +43,7 @@ public class AppointmentController {
 
 
     @PostMapping("/{hospitalId}/appointmentSavePage")
-    public String saveAppointment(@PathVariable Long hospitalId, @ModelAttribute("newAppointment")Appointment appointment) {
+    public String saveAppointment(@PathVariable Long hospitalId, @ModelAttribute("newAppointment")@Valid  Appointment appointment) {
         appointmentService.save(hospitalId, appointment);
         return "redirect:/appointments/"+hospitalId;
 
@@ -63,7 +64,7 @@ public class AppointmentController {
 
     }
     @PutMapping("/{hospitalId}/{appointmentId}/update")
-    public String updateAppointment(@PathVariable("hospitalId")Long hospitalId,@PathVariable("appointmentId")Long appointmentId, @ModelAttribute("appointment") Appointment appointment){
+    public String updateAppointment(@PathVariable("hospitalId")Long hospitalId,@PathVariable("appointmentId")Long appointmentId, @ModelAttribute("appointment")@Valid Appointment appointment){
         appointmentService.update(appointmentId, appointment);
         return "redirect: /appointments/"+hospitalId;
     }

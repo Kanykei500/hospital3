@@ -4,6 +4,7 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Repository;
+import peaksoft.exceptions.ApiException;
 import peaksoft.model.Hospital;
 import peaksoft.model.Patient;
 import peaksoft.repository.PatientRepository;
@@ -48,15 +49,19 @@ public class PatientRepositoryImpl implements PatientRepository {
 
     @Override
     public void update(Long id, Patient newPatient) {
-        Patient patient = entityManager.find(Patient.class, id);
-        patient.setFirstName(newPatient.getFirstName());
-        patient.setLastName(newPatient.getLastName());
-        patient.setEmail(newPatient.getEmail());
-        patient.setGender(newPatient.getGender());
-        patient.setPhoneNumber(newPatient.getPhoneNumber());
+        if (newPatient.getPhoneNumber().startsWith("+996")) {
+            Patient patient = entityManager.find(Patient.class, id);
+            patient.setFirstName(newPatient.getFirstName());
+            patient.setLastName(newPatient.getLastName());
+            patient.setEmail(newPatient.getEmail());
+            patient.setGender(newPatient.getGender());
+            patient.setPhoneNumber(newPatient.getPhoneNumber());
 
-    }
+        } else {
+            throw new RuntimeException("phone number should be starts +996");
+
+        }
 
 
-    }
+    }}
 

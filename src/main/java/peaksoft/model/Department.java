@@ -1,6 +1,8 @@
 package peaksoft.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -21,6 +23,8 @@ public class Department {
     @GeneratedValue(strategy = GenerationType.SEQUENCE,generator = "department_id_gen")
 
     private Long id;
+    @NotEmpty(message = "Name should not be null")
+
 
     private String name;
     @ManyToMany(mappedBy = "departments",cascade = {REFRESH,PERSIST,DETACH,MERGE})

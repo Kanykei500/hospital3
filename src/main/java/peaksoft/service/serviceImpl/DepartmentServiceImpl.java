@@ -3,6 +3,7 @@ package peaksoft.service.serviceImpl;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import peaksoft.exceptions.ApiException;
 import peaksoft.model.Appointment;
 import peaksoft.model.Department;
 import peaksoft.model.Hospital;
@@ -32,9 +33,20 @@ public class DepartmentServiceImpl implements DepartmentService {
 
     @Override
     public Department save(Long hospitalId, Department newDepartment) {
-        Hospital hospital =hospitalRepository.getHospitalById(hospitalId);
-        newDepartment.setHospital(hospital);
-        return departmentRepository.save(newDepartment);
+        try {
+            for (Department d : departmentRepository.getAllDepartments(hospitalId)) {
+                if (d.getName().equals(newDepartment.getName())) {
+                    throw new ApiException("Department okshosh at menen saktalbash kerek");
+                }
+            }
+
+            Hospital hospital = hospitalRepository.getHospitalById(hospitalId);
+            newDepartment.setHospital(hospital);
+            return departmentRepository.save(newDepartment);
+        } catch (ApiException e) {
+            System.out.println(e.getMessage());
+        }
+        return null;
     }
 
     @Override

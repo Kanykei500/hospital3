@@ -1,6 +1,8 @@
 package peaksoft.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -23,7 +25,9 @@ public class Hospital {
     private Long id;
     @Column(length = 1000000)
     private String image;
+    @NotEmpty(message = "Name should not be null")
     private String name;
+    @NotEmpty(message = "Address should not be null")
     private String address;
 
     @OneToMany(mappedBy = "hospital",cascade = {ALL})

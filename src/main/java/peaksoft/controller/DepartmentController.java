@@ -1,5 +1,6 @@
 package peaksoft.controller;
 
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -37,7 +38,7 @@ public class DepartmentController {
 
 
     @PostMapping("/{hospitalId}/departmentSavePage")
-    public String saveDepartment(@PathVariable Long hospitalId, @ModelAttribute("newDepartment") Department department) {
+    public String saveDepartment(@PathVariable Long hospitalId, @ModelAttribute("newDepartment")@Valid Department department) {
         departmentService.save(hospitalId,department);
         return "redirect: /departments/"+hospitalId;
 
@@ -55,7 +56,7 @@ public class DepartmentController {
 
     }
     @PutMapping("/{hospitalId}/{departmentId}/update")
-    public String updateDepartment(@PathVariable("hospitalId")Long hospitalId,@PathVariable("departmentId")Long id, @ModelAttribute("department") Department department){
+    public String updateDepartment(@PathVariable("hospitalId")Long hospitalId,@PathVariable("departmentId")Long id, @ModelAttribute("department")@Valid Department department){
         departmentService.update(id, department);
         return "redirect:/departments/"+hospitalId;
     }
