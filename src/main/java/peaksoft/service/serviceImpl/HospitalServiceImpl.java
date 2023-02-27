@@ -22,8 +22,12 @@ public class HospitalServiceImpl implements HospitalService {
     }
 
     @Override
-    public List<Hospital> getAllHospitals() {
-        return hospitalRepository.getAllHospitals();
+    public List<Hospital> getAllHospitals(String word) {
+        if (word != null && !word.trim().isEmpty()){
+           return hospitalRepository.search(word);
+        }else {
+          return    hospitalRepository.getAllHospitals();
+        }
     }
 
     @Override

@@ -13,4 +13,6 @@ public interface HospitalRepository {
     Hospital getHospitalById(Long id);
     void deleteHospital(Long id);
     void update( Long id,Hospital newHospital);
+
+    List<Hospital> search(String word);
 }

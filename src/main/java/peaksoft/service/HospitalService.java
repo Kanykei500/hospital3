@@ -7,7 +7,7 @@ import java.util.List;
 @Service
 public interface HospitalService {
     void save(Hospital newHospital);
-    List<Hospital> getAllHospitals();
+    List<Hospital> getAllHospitals(String word);
     Hospital getHospitalById(Long id);
     void deleteHospital(Long id);
     void update( Long id,Hospital newHospital);

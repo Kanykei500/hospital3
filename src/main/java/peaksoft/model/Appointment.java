@@ -22,7 +22,6 @@ public class Appointment {
     @SequenceGenerator(name = "appointment_id_gen",sequenceName = "appointment_id_seq",allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE,generator = "appointment_id_gen")
     private Long id;
-    @NotEmpty(message = "Date should not be null")
     private LocalDate date;
     @ManyToOne(cascade = {REFRESH,PERSIST,DETACH,MERGE})
     private Doctor doctor;

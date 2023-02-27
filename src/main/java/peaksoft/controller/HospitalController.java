@@ -40,8 +40,9 @@ public class HospitalController {
 
 
     @GetMapping("/profile")
-    public String getAllHospitals(Model model){
-        model.addAttribute("hospitals",hospitalService.getAllHospitals());
+    public String getAllHospitals(Model model ,@RequestParam(name = "word",required = false)String word){
+        model.addAttribute("word",word);
+        model.addAttribute("hospitals",hospitalService.getAllHospitals(word));
         return "hospitals/profile";
     }
     @GetMapping("/new")
@@ -60,15 +61,7 @@ public class HospitalController {
         hospitalService.deleteHospital(id);
         return "redirect:/hospitals/profile";
     }
-//    @GetMapping("{hospitalId}")
-//    public String getById(Model model,@PathVariable ("hospitalId")Long id){
-//        model.addAttribute("hospital",hospitalService.getHospitalById(id));
-//        model.addAttribute("doctors",doctorService.getAllDoctors(id).size());
-//        model.addAttribute("patients",patientService.getAllPatients(id).size());
-//        model.addAttribute("appointments",appointmentService.getAllAppointments(id).size());
-//        model.addAttribute("departments",departmentService.getAllDepartments(id).size());
-//        return "hospitals/profile";
-//    }
+
     @GetMapping("/{id}/edit")
     public String editHospital(Model model,@PathVariable("id")Long id){
         model.addAttribute("hospital",hospitalService.getHospitalById(id));

@@ -72,4 +72,12 @@ public class HospitalRepositoryImpl implements HospitalRepository {
        }
 
     }
+
+    @Override
+    public List<Hospital> search(String word) {
+        return entityManager.createQuery("select h from Hospital  h where h.name ilike (:word)", Hospital.class)
+                .setParameter("word",word).getResultList();
+    }
+
+
 }

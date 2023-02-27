@@ -76,10 +76,6 @@ public class DepartmentServiceImpl implements DepartmentService {
 
     @Override
     public void update(Long id, Department department) {
-//        Department department1 = departmentRepository.getDepartmentById(id);
-//        for (Department department2: departmentRepository.getAllDepartments(department1.getHospital().getId())) {
-//            List<Department> departments = departmentRepository.getAllDepartments(department1.getHospital().getId());
-//            departments.remove(department1);
             departmentRepository.update(id, department);
 
     }
